@@ -1,40 +1,18 @@
-// LOAD ALL USERS
+const btn = document.querySelector(".get-quotes");
+btn.addEventListener("click", getQuotes);
 
-const btn = document.getElementById("btn");
-btn.addEventListener("click", getUsers);
-
-//CREATE A FUNCTION GETUSERS
-
-function getUsers(e) {
+function getQuotes(e) {
     e.preventDefault();
 
-    const http = new XMLHttpRequest();
+    const https = new XMLHttpRequest();
 
-    http.open("GET", "users.json", true);
+    https.open("GET", "https://type.fit/api/quotes", true);
 
-    http.onload = function() {
-        if (this.status === 200){
-            // console.log(this.responseText);
-
-            const users = JSON.parse(this.responseText);
-
-            let output = "";
-            users.forEach(function(user) {
-                output += `
-                    <hr>
-                    <ul>
-                        <li>ID: ${user.id}</li>
-                        <li>Name: ${user.name}</li>
-                        <li>Age: ${user.age}</li>
-                        <li>Email: ${user.email}</li>
-                    </ul>
-                `;
-            })
-            
-            document.getElementById("users").innerHTML = output;
-
+    https.onload = function() {
+        if (this.status === 200) {
+            console.log(this.responseText);
         }
     }
 
-    http.send();
+    https.send();
 }
